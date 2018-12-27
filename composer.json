@@ -1,0 +1,25 @@
+{
+  "name": "dlepera88-php/sechianex",
+  "version": "1.0",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Diego Lepera",
+      "email": "dlepera88@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "phpunit/phpunit": "^7.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "SechianeX\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  }
+}
