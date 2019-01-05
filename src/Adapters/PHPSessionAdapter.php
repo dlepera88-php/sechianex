@@ -50,7 +50,7 @@ class PHPSessionAdapter implements SessionInterface
      */
     public function setSessionId(string $session_id): SessionInterface
     {
-        if ($this->isAtiva()) {
+        if (!$this->isAtiva()) {
             session_id($session_id);
         } else {
             session_regenerate_id($session_id);
