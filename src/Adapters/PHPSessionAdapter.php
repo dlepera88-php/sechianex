@@ -50,13 +50,11 @@ class PHPSessionAdapter implements SessionInterface
      */
     public function setSessionId(string $session_id): SessionInterface
     {
-        if ($this->isAtiva() && $session_id !== $session_id) {
-            $this->destroy();
+        if ($this->isAtiva()) {
+            session_id($session_id);
+        } else {
+            session_regenerate_id($session_id);
         }
-
-        session_id($session_id);
-
-        $this->start();
 
         $this->session_id = $session_id;
         return $this;
@@ -64,11 +62,17 @@ class PHPSessionAdapter implements SessionInterface
 
     /**
      * PHPSessionAdapter constructor.
-     * @param string $session_id
+     * @param string|null $session_id
      */
-    public function __construct(string $session_id)
+    public function __construct(?string $session_id = null)
     {
-        $this->setSessionId($session_id);
+        if (!empty($session_id)) {
+            $this->setSessionId($session_id);
+        }
+
+        if (!$this->isAtiva()) {
+            $this->start();
+        }
     }
 
     /**
