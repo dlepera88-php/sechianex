@@ -36,12 +36,12 @@ class SessionFactory
 {
     /**
      * @param string $adapter
-     * @param string $session_id
+     * @param string|null $session_id
      * @return SessionInterface
-     * @throws SessionAdapterNaoEncontradoException
      * @throws SessionAdapterInterfaceInvalidaException
+     * @throws SessionAdapterNaoEncontradoException
      */
-    public static function createFromAdapter(string $adapter, string $session_id): SessionInterface
+    public static function createFromAdapter(string $adapter, ?string $session_id = null): SessionInterface
     {
         if (!class_exists($adapter)) {
             throw new SessionAdapterNaoEncontradoException($adapter);
@@ -55,12 +55,12 @@ class SessionFactory
     }
 
     /**
-     * @param string $session_id
+     * @param string|null $session_id
      * @return PHPSessionAdapter
      * @throws SessionAdapterInterfaceInvalidaException
      * @throws SessionAdapterNaoEncontradoException
      */
-    public static function createPHPSession(string $session_id): PHPSessionAdapter
+    public static function createPHPSession(?string $session_id = null): PHPSessionAdapter
     {
         /** @var PHPSessionAdapter $adapter */
         $adapter = SessionFactory::createFromAdapter(PHPSessionAdapter::class, $session_id);
@@ -68,12 +68,12 @@ class SessionFactory
     }
 
     /**
-     * @param string $session_id
+     * @param string|null $session_id
      * @return MemorySessionAdapter
      * @throws SessionAdapterInterfaceInvalidaException
      * @throws SessionAdapterNaoEncontradoException
      */
-    public static function createMemorySession(string $session_id): MemorySessionAdapter
+    public static function createMemorySession(?string $session_id = null): MemorySessionAdapter
     {
         /** @var MemorySessionAdapter $adapter */
         $adapter = SessionFactory::createFromAdapter(MemorySessionAdapter::class, $session_id);
