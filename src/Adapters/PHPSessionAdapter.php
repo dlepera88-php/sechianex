@@ -74,9 +74,7 @@ class PHPSessionAdapter implements SessionInterface
             $this->setSessionId($session_id);
         }
 
-        if (!$this->isAtiva()) {
-            $this->start();
-        }
+        $this->start();
     }
 
     /**
@@ -143,14 +141,17 @@ class PHPSessionAdapter implements SessionInterface
      */
     public function start(): bool
     {
-        if (!headers_sent()) {
-            if (session_start()) {
-                $this->setSessionId(session_id());
-                $this->dados = &$_SESSION;
-                return true;
+        if (!$this->isAtiva()) {
+            if (headers_sent()) {
+                return false;
             }
+
+            session_start();
         }
 
-        return false;
+        $this->setSessionId(session_id());
+        $this->dados = &$_SESSION;
+
+        return true;
     }
 }
