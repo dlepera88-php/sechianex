@@ -40,9 +40,9 @@ class PHPSessionAdapter implements SessionInterface
     private $dados = [];
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSessionId(): string
+    public function getSessionId(): ?string
     {
         return $this->session_id;
     }

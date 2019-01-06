@@ -28,6 +28,7 @@ namespace Tests\Adapters;
 use PHPUnit\Framework\TestCase;
 use SechianeX\Adapters\PHPSessionAdapter;
 use SechianeX\Contracts\SessionInterface;
+use SechianeX\Factories\SessionFactory;
 
 $_SESSION = [];
 
@@ -67,5 +68,17 @@ class PHPSessionAdapterTest extends TestCase
     public function test_GetSessionId()
     {
         $this->assertEquals('sessao-teste', $this->session->getSessionId());
+    }
+
+    /**
+     * @throws \SechianeX\Exceptions\SessionAdapterInterfaceInvalidaException
+     * @throws \SechianeX\Exceptions\SessionAdapterNaoEncontradoException
+     */
+    public function test_create_PHPSession_sem_especificar_id()
+    {
+        $this->markTestSkipped('Não dá para testar sessões com o PHP Unit :(');
+
+        $session = SessionFactory::createPHPSession();
+        $this->assertEquals('sessao-teste', $session->getSessionId());
     }
 }

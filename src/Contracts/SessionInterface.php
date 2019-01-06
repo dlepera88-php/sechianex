@@ -29,9 +29,9 @@ namespace SechianeX\Contracts;
 interface SessionInterface
 {
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSessionId(): string;
+    public function getSessionId(): ?string;
 
     /**
      * @param string $session_id
