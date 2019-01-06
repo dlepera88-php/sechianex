@@ -140,7 +140,10 @@ class PHPSessionAdapter implements SessionInterface
     public function start(): bool
     {
         if (!headers_sent()) {
-            return session_start();
+            if (session_start()) {
+                $this->setSessionId(session_id());
+                return true;
+            }
         }
 
         return false;
