@@ -34,6 +34,10 @@ class PHPSessionAdapter implements SessionInterface
      * @var string
      */
     private $session_id;
+    /**
+     * @var array
+     */
+    private $dados = [];
 
     /**
      * @return string
@@ -81,7 +85,7 @@ class PHPSessionAdapter implements SessionInterface
      */
     public function get(string $attr)
     {
-        return $this->has($attr) ? $_SESSION[$attr] : null;
+        return $this->has($attr) ? $this->dados[$attr] : null;
     }
 
     /**
@@ -91,7 +95,7 @@ class PHPSessionAdapter implements SessionInterface
      */
     public function set(string $attr, $valor): SessionInterface
     {
-        $_SESSION[$attr] = $valor;
+        $this->dados[$attr] = $valor;
         return $this;
     }
 
@@ -101,7 +105,7 @@ class PHPSessionAdapter implements SessionInterface
      */
     public function has(string $attr): bool
     {
-        return array_key_exists($attr, $_SESSION);
+        return array_key_exists($attr, $this->dados);
     }
 
     /**
@@ -111,7 +115,7 @@ class PHPSessionAdapter implements SessionInterface
     public function unset(string $attr): SessionInterface
     {
         if ($this->has($attr)) {
-            unset($_SESSION[$attr]);
+            unset($this->dados[$attr]);
         }
 
         return $this;
@@ -142,6 +146,7 @@ class PHPSessionAdapter implements SessionInterface
         if (!headers_sent()) {
             if (session_start()) {
                 $this->setSessionId(session_id());
+                $this->dados = &$_SESSION;
                 return true;
             }
         }
