@@ -56,11 +56,9 @@ class PHPSessionAdapter implements SessionInterface
     {
         if (!$this->isAtiva()) {
             session_id($session_id);
-        } else {
-            session_regenerate_id($session_id);
+            $this->session_id = $session_id;
         }
 
-        $this->session_id = $session_id;
         return $this;
     }
 
@@ -149,7 +147,9 @@ class PHPSessionAdapter implements SessionInterface
             session_start();
         }
 
-        $this->setSessionId(session_id());
+        // Não utilizar o método set, pois ele força o session_regenerate_id
+        // $this->setSessionId(session_id());
+        $this->session_id = session_id();
         $this->dados = &$_SESSION;
 
         return true;
