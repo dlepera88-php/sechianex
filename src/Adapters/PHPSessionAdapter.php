@@ -75,6 +75,7 @@ class PHPSessionAdapter implements SessionInterface
         }
 
         $this->start();
+        $this->dados = &$_SESSION;
     }
 
     /**
@@ -150,7 +151,6 @@ class PHPSessionAdapter implements SessionInterface
         }
 
         $this->setSessionId(session_id());
-        $this->dados = &$_SESSION;
 
         return true;
     }

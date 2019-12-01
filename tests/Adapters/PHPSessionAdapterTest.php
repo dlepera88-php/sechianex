@@ -28,6 +28,8 @@ namespace Tests\Adapters;
 use PHPUnit\Framework\TestCase;
 use SechianeX\Adapters\PHPSessionAdapter;
 use SechianeX\Contracts\SessionInterface;
+use SechianeX\Exceptions\SessionAdapterInterfaceInvalidaException;
+use SechianeX\Exceptions\SessionAdapterNaoEncontradoException;
 use SechianeX\Factories\SessionFactory;
 
 $_SESSION = [];
@@ -71,8 +73,8 @@ class PHPSessionAdapterTest extends TestCase
     }
 
     /**
-     * @throws \SechianeX\Exceptions\SessionAdapterInterfaceInvalidaException
-     * @throws \SechianeX\Exceptions\SessionAdapterNaoEncontradoException
+     * @throws SessionAdapterInterfaceInvalidaException
+     * @throws SessionAdapterNaoEncontradoException
      */
     public function test_create_PHPSession_sem_especificar_id()
     {
